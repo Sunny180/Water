@@ -2,6 +2,7 @@ package com.fju.water2;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,9 +11,11 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,13 +39,19 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter();
+            }
+        });
     }
-
-    public void counter(View view){
+    public void counter() {
         Integer month = Integer.parseInt(edmonth.getText().toString());
-        double count ;
-        String setTitle ="";
-        String message ="";
+        double count;
+        String setTitle = "";
+        String message = "";
         setTitle = "每月抄表費用";
         DialogInterface.OnCancelListener listener = new DialogInterface.OnCancelListener() {
             @Override
@@ -51,48 +60,58 @@ public class MainActivity extends AppCompatActivity {
                 ednext.setText("");
             }
         };
-        if(1 <= month && month <= 10){
-            count = month*7.35;
-            message = "費用="+ count;
-            listener =null;
-        }if(11 <= month && month <= 30){
-            count = month*9.45-21;
-            message = "費用="+ count;
-            listener =null;
-        }if(31 <= month && month <= 50){
-            count = month*11.55-84;
-            message = "費用="+ count;
-            listener =null;
-        }if(51 <= month ){
-            count = month*12.075-110.25;
-            message = "費用="+ count;
-            listener =null;
+        if (1 <= month && month <= 10) {
+            count = month * 7.35;
+            message = "費用=" + count;
+            listener = null;
         }
-        if(String.valueOf(month).isEmpty()){
+        if (11 <= month && month <= 30) {
+            count = month * 9.45 - 21;
+            message = "費用=" + count;
+            listener = null;
+        }
+        if (31 <= month && month <= 50) {
+            count = month * 11.55 - 84;
+            message = "費用=" + count;
+            listener = null;
+        }
+        if (51 <= month) {
+            count = month * 12.075 - 110.25;
+            message = "費用=" + count;
+            listener = null;
+        }
+        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+        startActivity(intent);
+        if (TextUtils.isEmpty(String.valueOf(month))) {
+            Integer next = Integer.parseInt(ednext.getText().toString());
             setTitle = "隔月抄表費用";
-            if(1 <= month && month <= 20){
-                count = month*7.35;
-                message = "費用="+ count;
-                listener =null;
-            }if(21 <= month && month <= 60){
-                count = month*9.45-42;
-                message = "費用="+ count;
-                listener =null;
-            }if(61 <= month && month <= 100){
-                count = month*11.55-168;
-                message = "費用="+ count;
-                listener =null;
-            }if(101 <= month ){
-                count = month*12.075-220.5;
-                message = "費用="+ count;
-                listener =null;
+            if (1 <= month && month <= 20) {
+                count = month * 7.35;
+                message = "費用=" + count;
+                listener = null;
+            }
+            if (21 <= month && month <= 60) {
+                count = month * 9.45 - 42;
+                message = "費用=" + count;
+                listener = null;
+            }
+            if (61 <= month && month <= 100) {
+                count = month * 11.55 - 168;
+                message = "費用=" + count;
+                listener = null;
+            }
+            if (101 <= month) {
+                count = month * 12.075 - 220.5;
+                message = "費用=" + count;
+                listener = null;
             }
         }
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(setTitle)
                 .setMessage(message)
-                 .setPositiveButton("OK",null)
-                 .show();
+                .setPositiveButton("OK", null)
+                .show();
+
     }
 
     @Override
@@ -117,3 +136,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
