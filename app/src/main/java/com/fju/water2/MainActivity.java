@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void counter() {
         Integer month = Integer.parseInt(edmonth.getText().toString());
-        double count;
+        double count = 0;
         String setTitle = "";
         String message = "";
         setTitle = "每月抄表費用";
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             listener = null;
         }
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+        intent.putExtra("FEE", count);
         startActivity(intent);
         if (TextUtils.isEmpty(String.valueOf(month))) {
             Integer next = Integer.parseInt(ednext.getText().toString());

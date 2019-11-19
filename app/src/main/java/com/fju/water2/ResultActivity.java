@@ -1,5 +1,6 @@
 package com.fju.water2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -8,7 +9,9 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -27,6 +30,12 @@ public class ResultActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        Intent intent = getIntent();
+        double count = intent.getDoubleExtra("FEE",-1);
+        Log.d("ResultActivity", count+"");
+        TextView feeText = findViewById(R.id.fee);
+        int n = (int)(count + 0.5f);
+        feeText.setText(n +"");
     }
 
 }
