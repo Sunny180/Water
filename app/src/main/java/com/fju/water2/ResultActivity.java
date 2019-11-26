@@ -15,6 +15,9 @@ import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
+    private static final String TAG = ResultActivity.class.getSimpleName();
+    private static final double DEFAULT_FEE = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +34,8 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        double count = intent.getDoubleExtra("FEE",-1);
-        Log.d("ResultActivity", count+"");
+        double count = intent.getDoubleExtra(getString(R.string.extra_fee),DEFAULT_FEE);
+        Log.d(TAG, count+"");
         TextView feeText = findViewById(R.id.fee);
         int n = (int)(count + 0.5f);
         feeText.setText(n +"");

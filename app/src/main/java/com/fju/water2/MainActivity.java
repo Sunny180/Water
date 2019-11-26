@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             listener = null;
         }
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-        intent.putExtra("FEE", count);
+        intent.putExtra(getString(R.string.extra_fee), count);
         startActivity(intent);
         if (TextUtils.isEmpty(String.valueOf(month))) {
             Integer next = Integer.parseInt(ednext.getText().toString());
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(setTitle)
                 .setMessage(message)
-                .setPositiveButton("OK", null)
+                .setPositiveButton((R.string.ok), null)
                 .show();
 
     }
