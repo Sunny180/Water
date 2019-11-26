@@ -16,13 +16,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText edmonth;
-    private EditText ednext;
-
+    boolean isNext = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +32,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         edmonth = findViewById(R.id.month);
-        ednext = findViewById(R.id.next);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        Switch sw =findViewById(R.id.sw);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isNext = isChecked;
+                TextView text = findViewById(R.id.type);
+                text.setText(isNext ? getString(R.string.every_other_month) : getString(R.string.monthly));
             }
         });
         Button button = findViewById(R.id.button);
@@ -57,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialog) {
                 edmonth.setText("");
-                ednext.setText("");
             }
         };
         if (1 <= month && month <= 10) {
@@ -83,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
         intent.putExtra(getString(R.string.extra_fee), count);
         startActivity(intent);
-        if (TextUtils.isEmpty(String.valueOf(month))) {
+        /*if (TextUtils.isEmpty(String.valueOf(month))) {
             Integer next = Integer.parseInt(ednext.getText().toString());
             setTitle = "隔月抄表費用";
             if (1 <= month && month <= 20) {
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 message = "費用=" + count;
                 listener = null;
             }
-        }
+        }*/
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(setTitle)
                 .setMessage(message)
